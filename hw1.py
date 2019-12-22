@@ -13,7 +13,7 @@ def start(num_users, base_dir='./', session_name = "my_session"):
         token = "token: " + str(i)
         window = session.new_window(window_name = str(i), attach = False)
         pane = window.attached_pane
-        pane.send_keys("jupyter notebook -窶廃ort %d -窶馬o-browser -窶年otebookApp.token=%s -窶年otebookApp.notebook_dir=%s" %(port, str(token), work_directory), enter=True)
+        pane.send_keys("jupyter notebook 窶窶廃ort %d 窶窶馬o-browser 窶窶年otebookApp.token=%s 窶窶年otebookApp.notebook_dir=%s" %(port, str(token), work_directory), enter=True)
     
 
 def stop(session_name, num):
