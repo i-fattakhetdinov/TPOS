@@ -1,11 +1,12 @@
 import tqdm
 import argparse
+import libtmux
 
 def start(num_users, base_dir='./', session_name = "my_session"):
     server = libtmux.Server()
     if (server.has_session(session_name)):
-        print('Error: session already exists')
-		return
+        print('Error: session', session_name, 'already exists')
+        return
     session = server.new_session(session_name)
     for i in tqdm.tqdm(range(num_users)):
         work_directory = base_dir + str(i)
@@ -18,18 +19,18 @@ def start(num_users, base_dir='./', session_name = "my_session"):
 
 def stop(session_name, num):
     server = libtmux.Server()
-    if (!server.has_session(session_name)):
-	    print('Error: session not found')
-		return
+    if (not(server.has_session(session_name))):
+        print('Error: session not found')
+        return
     session = server.find_where({"session_name" : session_name})
     window = session.find_where({"window_name" : str(num)})
     window.kill_window()
 
 def stop_all(session_name):
     server = libtmux.Server()
-    if (!server.has_session(session_name)):
+    if (not(server.has_session(session_name))):
         print('Error: session not found')
-		return
+        return
     server.kill_session(session_name)
 
 parser = argparse.ArgumentParser()
@@ -49,11 +50,11 @@ if function_arguments_len == 3:
 
 if arguments.command == "start":
     if function_arguments_len == 3:   
-        start(f_arg, s_arg, t_arg)
+        start(int(f_arg), s_arg, t_arg)
     elif function_arguments_len == 2:
-        start(f_arg, s_arg)
+        start(int(f_arg), s_arg)
     else:  
-        start(f_arg)
+        start(int(f_arg))
 elif arguments.command == "stop":
     stop(f_arg, int(s_arg))
 elif arguments.command == "stop_all":
